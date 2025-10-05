@@ -15,7 +15,7 @@ public class ProdController {
     @Autowired
     ProductService service;
 
-
+/*  ------------------------WITHOUT JPA------------------------------------
     @RequestMapping("/products")
     public List<Product> getProducts(){
         return service.getProducts();
@@ -39,5 +39,38 @@ public class ProdController {
     @DeleteMapping("/products/{prodId}")
     public String deleteProduct(@PathVariable int prodId){
         return service.deleteProd(prodId);
+    }
+
+    */
+ //   ------------------WITH JPA------------------------------
+    @RequestMapping("/products")
+    public List<Product> getProducts(){
+        return service.getProducts();
+    }
+
+    @RequestMapping("/products/{prodId}")
+    public Product getProductById(@PathVariable int prodId){
+        return service.getProductById(prodId);
+    }
+
+    @PostMapping("/products")
+    public void addProductToCart(@RequestBody Product prod){
+        service.addProd(prod);
+    }
+
+    @PostMapping("/products/bulk")
+    public void addMultipleProducts(@RequestBody List<Product> products) {
+        service.addMultipleProducts(products);
+    }
+
+
+    @PutMapping("/products")
+    public void editProduct(@RequestBody Product prod){
+        service.updateProd(prod);
+    }
+
+    @DeleteMapping("/products/{prodId}")
+    public void deleteProd(@PathVariable int prodId){
+        service.deleteProdById(prodId);
     }
 }
